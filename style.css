@@ -68,9 +68,11 @@ body {
 .x::before {
   content: '×';
   font-size: 200px;
+  color: #298CA7;
 }
 
 .o::before { 
-  content: '○';
+  content: '⚬';
   font-size: 200px;
+  color: #51C5FF;
 }
