@@ -1,0 +1,33 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  
+  
+  display: flex;
+  justify-content: center;
+} 
+
+.container {
+  background: #C3F2FF;
+  margin: 69px;
+  padding: 69px;
+  border-radius: 69px;
+  width: 690px;
+  height: 690px;
+}
+
+.title {
+  color: #00A6D3;
+  font-family: Georgia;
+  text-align: center;
+}
+
+.remark {
+  color: #7EDBF5;
+  font-family: sans-serif;
+  text-align: center;
+}
