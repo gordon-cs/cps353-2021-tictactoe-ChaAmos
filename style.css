@@ -39,7 +39,8 @@ body {
 }
 
 .status span {
-  color: #00E7CE;
+  font-size: 28px;
+  color: #00789F;
 }
 
 .RS {

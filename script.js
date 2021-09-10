@@ -7,12 +7,9 @@ const gridSquares = document.querySelectorAll('.grid-square');
 //variables
 let gameLive = true;
 let xCurr = true;
+let win = null;
 const xMarker = '×';
 const oMarker = '⚬';
-
-let win = null;
-
-
 
 //functions
 
@@ -27,7 +24,6 @@ const currStatus = () => {
   } else {
     status.innerHTML = (`player: ${xMarker}`);
   }
-
   if (win!=null) {
     gameLive = false;
     status.innerHTML = `<span>${win}</span> has won!`;
@@ -85,13 +81,21 @@ const gameStatus = () => {
       win = gridSquares[2].classList[2];
     };
   console.log('winner:',win);
-
-  if(xCurr) {
-    status.innerHTML = (`player: ${oMarker}`);
-  } else {
-    status.innerHTML = (`player: ${xMarker}`);
-  }
   currStatus();
+  //tie check
+  if (!win) {
+    let i = 0;
+    for (const sq of gridSquares) {
+      if(sq.classList[2]) {
+        i++;
+      }
+      if (i === 9) {
+        gameLive = false;
+        status.innerHTML = `${xMarker} TIE! ${oMarker}`;
+        return;
+      }
+    }
+  }
 };
 
 /* 
@@ -133,9 +137,6 @@ const markSquare = (e) => {
   //swaps back
   xCurr = !xCurr;
 };
-
-
- 
 
 //listeners
 restart.addEventListener('click',rsGame);
