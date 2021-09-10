@@ -11,6 +11,9 @@ let win = null;
 const xMarker = '×';
 const oMarker = '⚬';
 
+var clickSFX = new Audio('pop.mp3');
+var sarcasmSFX = new Audio('w.mp3');
+
 //functions
 
 /*
@@ -92,6 +95,7 @@ const gameStatus = () => {
       if (i === 9) {
         gameLive = false;
         status.innerHTML = `${xMarker} TIE! ${oMarker}`;
+        sarcasmSFX.play();
         return;
       }
     }
@@ -103,6 +107,7 @@ const gameStatus = () => {
  */
 const rsGame = (e) => {
   xCurr = true;
+  gameLive = true;
   status.innerHTML = (`player: ${xMarker}`);
   win = null;
   for (sq of gridSquares) {
@@ -119,9 +124,8 @@ const markSquare = (e) => {
   cl = e.target.classList;
   sqNum = cl[1];
 
-  //if square is occupied
-  if(cl[2]){
-    console.log("taken",cl[2]);
+  //if square is occupied or the game is over
+  if(cl[2]||!gameLive){
     return;
   }
 
@@ -131,6 +135,7 @@ const markSquare = (e) => {
   } else {
     cl.add('o');
   }
+  clickSFX.play();
   gameStatus();
 
 
@@ -142,12 +147,10 @@ const markSquare = (e) => {
 restart.addEventListener('click',rsGame);
 
 for(const sq of gridSquares) {
-  sq.addEventListener('click',markSquare)
+  sq.addEventListener('click',markSquare);
 };
 
-
-/*                                                                                                                                      
-                                                
+/*
                     ██                          
                   ████  ██████████████          
                       ██▒▒▒▒▒▒▒▒▒▒▒▒▒▒██        
