@@ -6,13 +6,33 @@ const gridSquares = document.querySelectorAll('.grid-square');
 
 //variables
 let gameLive = true;
-let xNext = true;
+let xCurr = true;
+const xMarker = '×';
+const oMarker = '⚬';
 
 let win = null;
 
 
 
 //functions
+
+/*
+ * If there is a winner, modify html .status 
+ * Else, will update the current player
+ */
+const currStatus = () => {
+
+  if(xCurr) {
+    status.innerHTML = (`player: ${oMarker}`);
+  } else {
+    status.innerHTML = (`player: ${xMarker}`);
+  }
+
+  if (win!=null) {
+    gameLive = false;
+    status.innerHTML = `<span>${win}</span> has won!`;
+  }
+}
 
 /*
  * Check win conditions & which marker is next
@@ -23,12 +43,10 @@ const gameStatus = () => {
     if (gridSquares[col].classList[2] && 
       gridSquares[col].classList[2] === gridSquares[col+3].classList[2] &&
       gridSquares[col+6].classList[2] === gridSquares[col+3].classList[2]) {
-        console.log(gridSquares[col].classList[2],'won');
+
         gridSquares[col].classList.add('win');
         gridSquares[col+3].classList.add('win');
         gridSquares[col+6].classList.add('win');
-
-        gameLive = false;
         win = gridSquares[col].classList[2];
       };                            
   };
@@ -38,12 +56,10 @@ const gameStatus = () => {
     if (gridSquares[row].classList[2] &&
       gridSquares[row].classList[2] === gridSquares[row+1].classList[2] &&
       gridSquares[row+1].classList[2] === gridSquares[row+2].classList[2]) {
-        console.log(gridSquares[row].classList[2],'won');
+
         gridSquares[row].classList.add('win');
         gridSquares[row+1].classList.add('win');
         gridSquares[row+2].classList.add('win');
-
-        gameLive = false;
         win = gridSquares[row].classList[2];
       };
   };
@@ -52,35 +68,44 @@ const gameStatus = () => {
   if (gridSquares[0].classList[2] && 
     gridSquares[0].classList[2] === gridSquares[4].classList[2] && 
     gridSquares[4].classList[2] === gridSquares[8].classList[2]) {
-      console.log(gridSquares[0].classList[2],'won');
+
       gridSquares[0].classList.add('win');
       gridSquares[4].classList.add('win');
       gridSquares[8].classList.add('win');
-
-      gameLive = false;
       win = gridSquares[0].classList[2];
     };
 
   if (gridSquares[2].classList[2] && 
     gridSquares[2].classList[2] === gridSquares[4].classList[2] && 
     gridSquares[4].classList[2] === gridSquares[6].classList[2]) {
-      console.log(gridSquares[2].classList[2],'won');
+
       gridSquares[2].classList.add('win');
       gridSquares[4].classList.add('win');
       gridSquares[6].classList.add('win');
-
-      gameLive = false;
       win = gridSquares[2].classList[2];
     };
+  console.log('winner:',win);
 
-}
+  if(xCurr) {
+    status.innerHTML = (`player: ${oMarker}`);
+  } else {
+    status.innerHTML = (`player: ${xMarker}`);
+  }
+  currStatus();
+};
 
 /* 
  * if reset button has been selected, board will be wiped
  */
 const rsGame = (e) => {
-  console.log(e);
-
+  xCurr = true;
+  status.innerHTML = (`player: ${xMarker}`);
+  win = null;
+  for (sq of gridSquares) {
+    sq.classList.remove('x');
+    sq.classList.remove('o');
+    sq.classList.remove('win');
+  }
 };
 
 /*
@@ -97,14 +122,16 @@ const markSquare = (e) => {
   }
 
   //marks the correct marker
-  if(xNext){
+  if(xCurr){
     cl.add('x');
   } else {
     cl.add('o');
   }
   gameStatus();
+
+
   //swaps back
-  xNext = !xNext;
+  xCurr = !xCurr;
 };
 
 

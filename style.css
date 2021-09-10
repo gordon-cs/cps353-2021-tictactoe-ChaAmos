@@ -38,6 +38,10 @@ body {
   justify-content: space-around;
 }
 
+.status span {
+  color: #00E7CE;
+}
+
 .RS {
   cursor: pointer;
 }
@@ -75,4 +79,8 @@ body {
   content: '⚬';
   font-size: 200px;
   color: #51C5FF;
+}
+
+.x,.o {
+  cursor: default;
 }
