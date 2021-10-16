@@ -63,7 +63,7 @@ body {
   cursor: pointer;
   display: flex;
   text-align: center;
-  justify-content: center;
+  justify-content:center;
   height: 225px;
   width: 225px;
   background: #C3F2FF;
@@ -77,7 +77,8 @@ body {
 }
 
 .o::before { 
-  content: '⚬';
+  content: 'o'; 
+  /*⚬*/
   font-size: 200px;
   color: #51C5FF;
 }

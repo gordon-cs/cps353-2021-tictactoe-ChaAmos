@@ -148,7 +148,12 @@ restart.addEventListener('click',rsGame);
 
 for(const sq of gridSquares) {
   sq.addEventListener('click',markSquare);
-};
+  sq.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {
+        sq.click();
+    }
+  });
+}
 
 /*
                     ██                          
